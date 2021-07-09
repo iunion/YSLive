@@ -9,16 +9,31 @@
 #import <Foundation/Foundation.h>
 #import "NSRegularExpression+BMRegEx.h"
 
+/// email
 #define BMEMAIL_PATTERN                         @"^[A-Za-z0-9_\\.-]+@[0-9A-Za-z\\.-]+\\.[A-Za-z]{2,6}$"
+/// 座机号码
 #define BMPHONE_PATTERN                         @"^((\\+)|(00))[0-9]{6,15}$"
+/// 手机号码
 #define BMPHONE_PATTERN_CHINESE                 @"^(1[3-9])\\d{9}$"
+/// ip地址
 #define BMIP_PATTERN                            @"^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$"
+/// MD5
 #define BMMD5_32_PATTERN                        @"^[0-9A-Za-z]{32}$"
+/// 大陆身份证号码
 #define BMCHINESE_ID_NUMBER_PATTERN             @"^(^[1-9]\\d{7}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{3}$)|(^[1-9]\\d{5}[1-9]\\d{3}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])((\\d{4})|\\d{3}[Xx])$)$"
+
+
 #define BMPASSWORD_PATTERN                      @"^[0-9A-Za-z_\\.\\*\\&\\[\\]\\(\\)\%\\$#@]{6,16}$"
 #define BMNICKNAME_PATTERN                      @"^(\\s*\\S+\\s*)+$"
 
 #define BMDOMAIN_PATTERN                       @"^(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\\.)+[a-z0-9][a-z0-9-]{0,61}[a-z0-9]$"
+
+/// url
+#define BMURL_PATTERN                           @"((http[s]{0,1}|ftp)://[a-zA-Z0-9\\-.]+(?::(\\d+))?(?:(?:/[a-zA-Z0-9\\-._?,'+\\&%$=~*!():@\\\\]*)+)?)|(www.[a-zA-Z0-9\\.\\-]+\\.([a-zA-Z]{2,4})(:\\d+)?(/[a-zA-Z0-9\\.\\-~!@#$%^&*+?:_/=<>]*)?)"
+/// 是否包含中文
+#define BMCHINESE_PATTERN                       @"[\\u4e00-\\u9fa5\\w\\-]+"
+
+
 
 
 @interface NSString (RegEx)

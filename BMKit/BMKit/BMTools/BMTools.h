@@ -73,6 +73,8 @@
 
 #import "BMProgressHUD.h"
 
+#import "BMAuthorizetion.h"
+
 #import "BMHttpRequest.h"
 #import "BMCloudHubUtil.h"
 

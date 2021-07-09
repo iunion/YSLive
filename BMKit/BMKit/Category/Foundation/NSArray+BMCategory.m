@@ -30,6 +30,11 @@
 
 - (NSString *)bm_toJSONWithOptions:(NSJSONWritingOptions)options
 {
+    if (![self bm_isNotEmpty] || ![NSJSONSerialization isValidJSONObject:self])
+    {
+        return @"{}";
+    }
+
     NSString *json = nil;
     NSError *error = nil;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self options:options error:&error];

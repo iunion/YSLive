@@ -529,6 +529,20 @@
 		87B480072546DCB000DB986C /* BMCacheObjectSubscripting.h in Headers */ = {isa = PBXBuildFile; fileRef = 87B47FD62546AD9500DB986C /* BMCacheObjectSubscripting.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		87CB8D3C25834A58000B402D /* UIBezierPath+BMCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = 87CB8D3A25834A58000B402D /* UIBezierPath+BMCategory.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		87CB8D3D25834A58000B402D /* UIBezierPath+BMCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 87CB8D3B25834A58000B402D /* UIBezierPath+BMCategory.m */; };
+		87E34A332697FE2A003CC821 /* BMAuthorizetion.h in Headers */ = {isa = PBXBuildFile; fileRef = 87E34A312697FE2A003CC821 /* BMAuthorizetion.h */; };
+		87E34A342697FE2A003CC821 /* BMAuthorizetion.m in Sources */ = {isa = PBXBuildFile; fileRef = 87E34A322697FE2A003CC821 /* BMAuthorizetion.m */; };
+		87E34A3726980108003CC821 /* BMAuthorizetionCalendar.h in Headers */ = {isa = PBXBuildFile; fileRef = 87E34A3526980108003CC821 /* BMAuthorizetionCalendar.h */; };
+		87E34A3826980108003CC821 /* BMAuthorizetionCalendar.m in Sources */ = {isa = PBXBuildFile; fileRef = 87E34A3626980108003CC821 /* BMAuthorizetionCalendar.m */; };
+		87E34A3B26981090003CC821 /* BMAuthorizetionCamera.h in Headers */ = {isa = PBXBuildFile; fileRef = 87E34A3926981090003CC821 /* BMAuthorizetionCamera.h */; };
+		87E34A3C26981090003CC821 /* BMAuthorizetionCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 87E34A3A26981090003CC821 /* BMAuthorizetionCamera.m */; };
+		87E34A3F26981149003CC821 /* BMAuthorizetionContacts.h in Headers */ = {isa = PBXBuildFile; fileRef = 87E34A3D26981149003CC821 /* BMAuthorizetionContacts.h */; };
+		87E34A4026981149003CC821 /* BMAuthorizetionContacts.m in Sources */ = {isa = PBXBuildFile; fileRef = 87E34A3E26981149003CC821 /* BMAuthorizetionContacts.m */; };
+		87E34A432698139A003CC821 /* BMAuthorizetionMicrophone.h in Headers */ = {isa = PBXBuildFile; fileRef = 87E34A412698139A003CC821 /* BMAuthorizetionMicrophone.h */; };
+		87E34A442698139A003CC821 /* BMAuthorizetionMicrophone.m in Sources */ = {isa = PBXBuildFile; fileRef = 87E34A422698139A003CC821 /* BMAuthorizetionMicrophone.m */; };
+		87E34A47269814A3003CC821 /* BMAuthorizetionPhotos.h in Headers */ = {isa = PBXBuildFile; fileRef = 87E34A45269814A3003CC821 /* BMAuthorizetionPhotos.h */; };
+		87E34A48269814A3003CC821 /* BMAuthorizetionPhotos.m in Sources */ = {isa = PBXBuildFile; fileRef = 87E34A46269814A3003CC821 /* BMAuthorizetionPhotos.m */; };
+		87E34A4B2698159B003CC821 /* BMAuthorizetionReminder.h in Headers */ = {isa = PBXBuildFile; fileRef = 87E34A492698159B003CC821 /* BMAuthorizetionReminder.h */; };
+		87E34A4C2698159B003CC821 /* BMAuthorizetionReminder.m in Sources */ = {isa = PBXBuildFile; fileRef = 87E34A4A2698159B003CC821 /* BMAuthorizetionReminder.m */; };
 		87E3DDF025D0DD7000B8DA17 /* BMIconFont.h in Headers */ = {isa = PBXBuildFile; fileRef = 87E3DDEE25D0DD6F00B8DA17 /* BMIconFont.h */; };
 		87E3DDF125D0DD7000B8DA17 /* BMIconFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 87E3DDEF25D0DD6F00B8DA17 /* BMIconFont.m */; };
 		87F31B26267C77EE00D48641 /* BMTZVideoCropController.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F31B22267C77ED00D48641 /* BMTZVideoCropController.m */; };
@@ -1059,6 +1073,20 @@
 		87B47FFA2546D60B00DB986C /* BMCache.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BMCache.m; sourceTree = "<group>"; };
 		87CB8D3A25834A58000B402D /* UIBezierPath+BMCategory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIBezierPath+BMCategory.h"; sourceTree = "<group>"; };
 		87CB8D3B25834A58000B402D /* UIBezierPath+BMCategory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIBezierPath+BMCategory.m"; sourceTree = "<group>"; };
+		87E34A312697FE2A003CC821 /* BMAuthorizetion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BMAuthorizetion.h; sourceTree = "<group>"; };
+		87E34A322697FE2A003CC821 /* BMAuthorizetion.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BMAuthorizetion.m; sourceTree = "<group>"; };
+		87E34A3526980108003CC821 /* BMAuthorizetionCalendar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BMAuthorizetionCalendar.h; sourceTree = "<group>"; };
+		87E34A3626980108003CC821 /* BMAuthorizetionCalendar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BMAuthorizetionCalendar.m; sourceTree = "<group>"; };
+		87E34A3926981090003CC821 /* BMAuthorizetionCamera.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BMAuthorizetionCamera.h; sourceTree = "<group>"; };
+		87E34A3A26981090003CC821 /* BMAuthorizetionCamera.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BMAuthorizetionCamera.m; sourceTree = "<group>"; };
+		87E34A3D26981149003CC821 /* BMAuthorizetionContacts.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BMAuthorizetionContacts.h; sourceTree = "<group>"; };
+		87E34A3E26981149003CC821 /* BMAuthorizetionContacts.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BMAuthorizetionContacts.m; sourceTree = "<group>"; };
+		87E34A412698139A003CC821 /* BMAuthorizetionMicrophone.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BMAuthorizetionMicrophone.h; sourceTree = "<group>"; };
+		87E34A422698139A003CC821 /* BMAuthorizetionMicrophone.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BMAuthorizetionMicrophone.m; sourceTree = "<group>"; };
+		87E34A45269814A3003CC821 /* BMAuthorizetionPhotos.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BMAuthorizetionPhotos.h; sourceTree = "<group>"; };
+		87E34A46269814A3003CC821 /* BMAuthorizetionPhotos.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BMAuthorizetionPhotos.m; sourceTree = "<group>"; };
+		87E34A492698159B003CC821 /* BMAuthorizetionReminder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BMAuthorizetionReminder.h; sourceTree = "<group>"; };
+		87E34A4A2698159B003CC821 /* BMAuthorizetionReminder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BMAuthorizetionReminder.m; sourceTree = "<group>"; };
 		87E3DDEE25D0DD6F00B8DA17 /* BMIconFont.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BMIconFont.h; sourceTree = "<group>"; };
 		87E3DDEF25D0DD6F00B8DA17 /* BMIconFont.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BMIconFont.m; sourceTree = "<group>"; };
 		87F31B22267C77ED00D48641 /* BMTZVideoCropController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMTZVideoCropController.m; sourceTree = "<group>"; };
@@ -1269,6 +1297,7 @@
 		8701AEA12371550000A43607 /* BMTools */ = {
 			isa = PBXGroup;
 			children = (
+				87E34A302697FE12003CC821 /* BMAuthorizetion */,
 				264A169D25355372000916F2 /* BMCountDownButton */,
 				8779E57723F2D3FC008E885C /* BMRSA */,
 				8701AEA22371550000A43607 /* BMAlertView */,
@@ -2072,6 +2101,27 @@
 			path = BMCacheOperation;
 			sourceTree = "<group>";
 		};
+		87E34A302697FE12003CC821 /* BMAuthorizetion */ = {
+			isa = PBXGroup;
+			children = (
+				87E34A312697FE2A003CC821 /* BMAuthorizetion.h */,
+				87E34A322697FE2A003CC821 /* BMAuthorizetion.m */,
+				87E34A3526980108003CC821 /* BMAuthorizetionCalendar.h */,
+				87E34A3626980108003CC821 /* BMAuthorizetionCalendar.m */,
+				87E34A3926981090003CC821 /* BMAuthorizetionCamera.h */,
+				87E34A3A26981090003CC821 /* BMAuthorizetionCamera.m */,
+				87E34A3D26981149003CC821 /* BMAuthorizetionContacts.h */,
+				87E34A3E26981149003CC821 /* BMAuthorizetionContacts.m */,
+				87E34A412698139A003CC821 /* BMAuthorizetionMicrophone.h */,
+				87E34A422698139A003CC821 /* BMAuthorizetionMicrophone.m */,
+				87E34A45269814A3003CC821 /* BMAuthorizetionPhotos.h */,
+				87E34A46269814A3003CC821 /* BMAuthorizetionPhotos.m */,
+				87E34A492698159B003CC821 /* BMAuthorizetionReminder.h */,
+				87E34A4A2698159B003CC821 /* BMAuthorizetionReminder.m */,
+			);
+			path = BMAuthorizetion;
+			sourceTree = "<group>";
+		};
 		87E3DDED25D0DD4200B8DA17 /* BMIconFont */ = {
 			isa = PBXGroup;
 			children = (
@@ -2151,6 +2201,7 @@
 				87F31B28267C77EE00D48641 /* BMTZVideoEditedPreviewController.h in Headers */,
 				8742FE4124F3A12A00BDF294 /* BMSDImageCachesManagerOperation.h in Headers */,
 				871C87C92623E1CE00AB898E /* BMStepCountDowmManager.h in Headers */,
+				87E34A432698139A003CC821 /* BMAuthorizetionMicrophone.h in Headers */,
 				87832D9224863E8700F1178E /* BMImageTitleButtonView.h in Headers */,
 				87901A5F24176EB500FF38EC /* BMMASViewAttribute.h in Headers */,
 				87901A6124176EB500FF38EC /* BMMASViewConstraint.h in Headers */,
@@ -2185,6 +2236,7 @@
 				879019C12416497F00FF38EC /* BMAFNetworking.h in Headers */,
 				87A186D32508D31100607E24 /* BMCloudHubUtil.h in Headers */,
 				87901A08241727BF00FF38EC /* BMTZImageRequestOperation.h in Headers */,
+				87E34A3F26981149003CC821 /* BMAuthorizetionContacts.h in Headers */,
 				879019D0241655D000FF38EC /* BMAFURLSessionManager.h in Headers */,
 				879019BF2416492100FF38EC /* BMAFHTTPSessionManager.h in Headers */,
 				879019C824164D1F00FF38EC /* BMAFSecurityPolicy.h in Headers */,
@@ -2194,11 +2246,13 @@
 				8790199C24163F4C00FF38EC /* BMKitThird.h in Headers */,
 				8742FE5224F3A12A00BDF294 /* BMSDDisplayLink.h in Headers */,
 				8779E57B23F2D3FC008E885C /* BMRSA.h in Headers */,
+				87E34A3726980108003CC821 /* BMAuthorizetionCalendar.h in Headers */,
 				8742FE5024F3A12A00BDF294 /* BMSDDeviceHelper.h in Headers */,
 				8777C7BA23EBA9CD002002BF /* BMTabBarController.h in Headers */,
 				8777C7B623EAC069002002BF /* BMTabItemButton.h in Headers */,
 				8777C79123EA72A2002002BF /* BMFreshBackFooterView.h in Headers */,
 				8777C79323EA72A2002002BF /* BMFreshBackContainerFooterView.h in Headers */,
+				87E34A3B26981090003CC821 /* BMAuthorizetionCamera.h in Headers */,
 				8777C78E23EA72A2002002BF /* BMFreshBackNormalFooter.h in Headers */,
 				8777C79823EA72A3002002BF /* BMFreshAutoNormalFooter.h in Headers */,
 				8777C77823EA72A2002002BF /* BMFreshContainerHeaderView.h in Headers */,
@@ -2211,6 +2265,7 @@
 				8777C77723EA72A2002002BF /* UIScrollView+BMFresh.h in Headers */,
 				8777C78123EA72A2002002BF /* BMFreshDotHeader.h in Headers */,
 				8777C79423EA72A2002002BF /* BMFreshAutoContainerFooterView.h in Headers */,
+				87E34A47269814A3003CC821 /* BMAuthorizetionPhotos.h in Headers */,
 				8777C77923EA72A2002002BF /* BMFreshNormalHeader.h in Headers */,
 				8777C78223EA72A2002002BF /* BMFreshTriangleDotHeader.h in Headers */,
 				8777C78823EA72A2002002BF /* BMFreshCircleHeader.h in Headers */,
@@ -2336,7 +2391,9 @@
 				8701AE6123714E6000A43607 /* NSBundle+BMResource.h in Headers */,
 				8701AE1B23714E6000A43607 /* UITextField+BMCategory.h in Headers */,
 				8701AE2123714E6000A43607 /* UIButton+BMCategory.h in Headers */,
+				87E34A4B2698159B003CC821 /* BMAuthorizetionReminder.h in Headers */,
 				8701AE4423714E6000A43607 /* NSData+BMCategory.h in Headers */,
+				87E34A332697FE2A003CC821 /* BMAuthorizetion.h in Headers */,
 				8701AE5D23714E6000A43607 /* NSRegularExpression+BMRegEx.h in Headers */,
 				87901A6324176EB500FF38EC /* NSLayoutConstraint+BMMASDebugAdditions.h in Headers */,
 				8701AFE7237163B100A43607 /* BMVerifyFieldTextRange.h in Headers */,
@@ -2482,6 +2539,7 @@
 				8701AE1723714E6000A43607 /* UIView+BMAnimationExtensions.m in Sources */,
 				879019D1241655D000FF38EC /* BMAFURLSessionManager.m in Sources */,
 				8701AE2C23714E6000A43607 /* UITextField+BMCategory.m in Sources */,
+				87E34A48269814A3003CC821 /* BMAuthorizetionPhotos.m in Sources */,
 				8701AEAA2371550000A43607 /* BMNoticeView.m in Sources */,
 				87901A5724176EB500FF38EC /* NSLayoutConstraint+BMMASDebugAdditions.m in Sources */,
 				8742FE3824F3A12A00BDF294 /* BMSDAnimatedImage.m in Sources */,
@@ -2505,6 +2563,7 @@
 				87E3DDF125D0DD7000B8DA17 /* BMIconFont.m in Sources */,
 				8742FDE024F3A12A00BDF294 /* BMSDWebImagePrefetcher.m in Sources */,
 				879019C924164D1F00FF38EC /* BMAFSecurityPolicy.m in Sources */,
+				87E34A4C2698159B003CC821 /* BMAuthorizetionReminder.m in Sources */,
 				8701B117237165AA00A43607 /* BMDateTimeItem.m in Sources */,
 				87901A0D241727BF00FF38EC /* BMTZPhotoPreviewCell.m in Sources */,
 				8777C79623EA72A2002002BF /* BMFreshAutoContainerFooterView.m in Sources */,
@@ -2542,6 +2601,7 @@
 				879019FE241727BF00FF38EC /* BMTZVideoPlayerController.m in Sources */,
 				8742FE3E24F3A12A00BDF294 /* BMSDImageCoder.m in Sources */,
 				8742FDE224F3A12A00BDF294 /* BMSDAnimatedImageView+WebCache.m in Sources */,
+				87E34A4026981149003CC821 /* BMAuthorizetionContacts.m in Sources */,
 				8701AE5A23714E6000A43607 /* NSDictionary+BMCategory.m in Sources */,
 				8701AF95237160DB00A43607 /* BMScrollPageView.m in Sources */,
 				8742F87B24EF6E7600BDF294 /* BMProgressHUD.m in Sources */,
@@ -2577,6 +2637,7 @@
 				264A16A325355433000916F2 /* BMCountDownButton.m in Sources */,
 				8742FDE524F3A12A00BDF294 /* BMSDImageAPNGCoder.m in Sources */,
 				8742FDDA24F3A12A00BDF294 /* UIImage+BMTransform.m in Sources */,
+				87E34A442698139A003CC821 /* BMAuthorizetionMicrophone.m in Sources */,
 				8742FDF624F3A12A00BDF294 /* BMSDGraphicsImageRenderer.m in Sources */,
 				8777C78A23EA72A2002002BF /* BMFreshHeaderView.m in Sources */,
 				8777C78323EA72A2002002BF /* BMFreshContainerHeaderView.m in Sources */,
@@ -2622,6 +2683,7 @@
 				8742FE3624F3A12A00BDF294 /* BMSDImageCachesManager.m in Sources */,
 				87901A1D241729D800FF38EC /* NSBundle+BMTZImagePicker.m in Sources */,
 				879019BE2416492100FF38EC /* BMAFHTTPSessionManager.m in Sources */,
+				87E34A342697FE2A003CC821 /* BMAuthorizetion.m in Sources */,
 				8742FE4924F3A12A00BDF294 /* BMSDWeakProxy.m in Sources */,
 				8742FDE624F3A12A00BDF294 /* BMSDImageCodersManager.m in Sources */,
 				8701B106237165AA00A43607 /* BMTableViewManager.m in Sources */,
@@ -2644,6 +2706,7 @@
 				8701B0F5237165AA00A43607 /* BMTableViewNumberTextCell.m in Sources */,
 				8701AF94237160DB00A43607 /* BMScrollPageSegment.m in Sources */,
 				8742FE2624F3A12A00BDF294 /* BMSDWebImageDownloaderRequestModifier.m in Sources */,
+				87E34A3826980108003CC821 /* BMAuthorizetionCalendar.m in Sources */,
 				8701AE3123714E6000A43607 /* UIButton+BMCategory.m in Sources */,
 				8701B104237165AA00A43607 /* BMTableViewCell.m in Sources */,
 				8742FE0924F3A12A00BDF294 /* BMSDWebImageDownloaderDecryptor.m in Sources */,
@@ -2679,6 +2742,7 @@
 				8742FDF024F3A12A00BDF294 /* UIImageView+BMHighlightedWebCache.m in Sources */,
 				87901A04241727BF00FF38EC /* BMTZPhotoPreviewController.m in Sources */,
 				8701AFF12371648200A43607 /* BMDatePicker.m in Sources */,
+				87E34A3C26981090003CC821 /* BMAuthorizetionCamera.m in Sources */,
 				8742FE0824F3A12A00BDF294 /* BMSDWebImageOperation.m in Sources */,
 				8701AE0A23714E6000A43607 /* UIWindow+BMCategory.m in Sources */,
 				8701AE1423714E6000A43607 /* UIView+BMPositioning.m in Sources */,

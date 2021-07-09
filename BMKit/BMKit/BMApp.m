@@ -17,7 +17,7 @@ static NSString * const BMAppLastBuildVersionKey    = @"BMApp.lastBuildVersion";
 
 + (void)onFirstStartApp:(firstStartAppHandler)block
 {
-    [self onFirstStartApp:block withKey:BMAPP_NAME];
+    [BMApp onFirstStartApp:block withKey:BMAPP_NAME];
 }
 
 + (void)onFirstStartApp:(firstStartAppHandler)block withKey:(NSString *)key;
@@ -42,7 +42,7 @@ static NSString * const BMAppLastBuildVersionKey    = @"BMApp.lastBuildVersion";
 + (void)onFirstStartForVersion:(NSString *)version
                          block:(firstStartHandler)block
 {
-    [self onFirstStartForVersion:version block:block withKey:BMAPP_NAME];
+    [BMApp onFirstStartForVersion:version block:block withKey:BMAPP_NAME];
 }
 
 + (void)onFirstStartForVersion:(NSString *)version
@@ -50,7 +50,7 @@ static NSString * const BMAppLastBuildVersionKey    = @"BMApp.lastBuildVersion";
                        withKey:(NSString *)key
 {
     // version > lastVersion && version <= appVersion
-    if ([version compare:[self lastVersionWithKey:key] options:NSNumericSearch] == NSOrderedDescending &&
+    if ([version compare:[BMApp lastVersionWithKey:key] options:NSNumericSearch] == NSOrderedDescending &&
         [version compare:BMAPP_VERSION options:NSNumericSearch] != NSOrderedDescending)
     {
         block(YES);
@@ -59,7 +59,7 @@ static NSString * const BMAppLastBuildVersionKey    = @"BMApp.lastBuildVersion";
         BMLog(@"BMApp: Running migration for version %@", version);
 #endif
         
-        [self setLastVersion:version withKey:key];
+        [BMApp setLastVersion:version withKey:key];
     }
     else
     {
@@ -70,7 +70,7 @@ static NSString * const BMAppLastBuildVersionKey    = @"BMApp.lastBuildVersion";
 + (void)onFirstStartForBuildVersion:(NSString *)buildVersion
                               block:(firstStartHandler)block
 {
-    [self onFirstStartForBuildVersion:buildVersion block:block withKey:BMAPP_NAME];
+    [BMApp onFirstStartForBuildVersion:buildVersion block:block withKey:BMAPP_NAME];
 }
 
 + (void)onFirstStartForBuildVersion:(NSString *)buildVersion
@@ -78,7 +78,7 @@ static NSString * const BMAppLastBuildVersionKey    = @"BMApp.lastBuildVersion";
                             withKey:(NSString *)key
 {
     // buildVersion > lastBuildVersion && buildVersion <= appBuildVersion
-    if ([buildVersion compare:[self lastBuildVersionWithKey:key] options:NSNumericSearch] == NSOrderedDescending &&
+    if ([buildVersion compare:[BMApp lastBuildVersionWithKey:key] options:NSNumericSearch] == NSOrderedDescending &&
         [buildVersion compare:BMAPP_BUILD options:NSNumericSearch] != NSOrderedDescending)
     {
         block(YES);
@@ -87,7 +87,7 @@ static NSString * const BMAppLastBuildVersionKey    = @"BMApp.lastBuildVersion";
         BMLog(@"BMApp: Running migration for buildVersion %@", buildVersion);
 #endif
         
-        [self setLastBuildVersion:buildVersion withKey:key];
+        [BMApp setLastBuildVersion:buildVersion withKey:key];
     }
     else
     {
@@ -97,12 +97,12 @@ static NSString * const BMAppLastBuildVersionKey    = @"BMApp.lastBuildVersion";
 
 + (void)onFirstStartForCurrentVersion:(firstStartHandler)block
 {
-    [self onFirstStartForCurrentVersion:block withKey:BMAPP_NAME];
+    [BMApp onFirstStartForCurrentVersion:block withKey:BMAPP_NAME];
 }
 
 + (void)onFirstStartForCurrentVersion:(firstStartHandler)block withKey:(NSString *)key
 {
-    if (![[self lastVersionWithKey:key] isEqualToString:BMAPP_VERSION])
+    if (![[BMApp lastVersionWithKey:key] isEqualToString:BMAPP_VERSION])
     {
         block(YES);
 
@@ -110,18 +110,18 @@ static NSString * const BMAppLastBuildVersionKey    = @"BMApp.lastBuildVersion";
         BMLog(@"BMApp: Running update Block for version %@", BMAPP_VERSION);
 #endif
         
-        [self setLastVersion:BMAPP_VERSION withKey:key];
+        [BMApp setLastVersion:BMAPP_VERSION withKey:key];
     }
 }
 
 + (void)onFirstStartForCurrentBuildVersion:(firstStartHandler)block
 {
-    [self onFirstStartForCurrentBuildVersion:block withKey:BMAPP_NAME];
+    [BMApp onFirstStartForCurrentBuildVersion:block withKey:BMAPP_NAME];
 }
 
 + (void)onFirstStartForCurrentBuildVersion:(nonnull firstStartHandler)block withKey:(nullable NSString *)key
 {
-    if (![[self lastBuildVersionWithKey:key] isEqualToString:BMAPP_BUILD])
+    if (![[BMApp lastBuildVersionWithKey:key] isEqualToString:BMAPP_BUILD])
     {
         block(YES);
         
@@ -129,7 +129,7 @@ static NSString * const BMAppLastBuildVersionKey    = @"BMApp.lastBuildVersion";
         BMLog(@"BMApp: Running update Block for buildVersion %@", BMAPP_BUILD);
 #endif
         
-        [self setLastBuildVersion:BMAPP_BUILD withKey:key];
+        [BMApp setLastBuildVersion:BMAPP_BUILD withKey:key];
     }
 }
 
@@ -138,7 +138,7 @@ static NSString * const BMAppLastBuildVersionKey    = @"BMApp.lastBuildVersion";
 
 + (void)reset
 {
-    [self resetWithKey:BMAPP_NAME];
+    [BMApp resetWithKey:BMAPP_NAME];
 }
 
 + (void)resetWithKey:(NSString *)key
@@ -151,8 +151,8 @@ static NSString * const BMAppLastBuildVersionKey    = @"BMApp.lastBuildVersion";
     
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:appkey];
     
-    [self setLastVersion:nil withKey:key];
-    [self setLastBuildVersion:nil withKey:key];
+    [BMApp setLastVersion:nil withKey:key];
+    [BMApp setLastBuildVersion:nil withKey:key];
 }
 
 + (NSString *)lastVersionWithKey:(NSString *)key
@@ -201,6 +201,132 @@ static NSString * const BMAppLastBuildVersionKey    = @"BMApp.lastBuildVersion";
     
     [[NSUserDefaults standardUserDefaults] setValue:version forKey:appkey];
     [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+/// make call.
++ (void)makeCallWithPhoneNum:(NSString *)phoneNum
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (![phoneNum bm_isNotEmpty])
+        {
+            return;
+        }
+        
+        NSString *string = [NSString stringWithFormat:@"tel://%@", phoneNum];
+        NSURL *url = [NSURL URLWithString:string];
+        
+        if (@available(iOS 10.0, *))
+        {
+            [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+        }
+        else
+        {
+            [[UIApplication sharedApplication] openURL:url];
+        }
+    });
+}
+
+/// open app settings.
++ (void)openAppSettings
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (@available(iOS 10.0, *))
+        {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{} completionHandler:nil];
+        }
+        else
+        {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+        }
+    });
+}
+
+/// Open App Store Review.
++ (void)openAppStoreReviewWithAppId:(NSString *)appId
+{
+    NSString *appURL = [NSString stringWithFormat:@"https://itunes.apple.com/cn/app/id%@?action=write-review", appId];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (@available(iOS 10.0, *))
+        {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:appURL] options:@{} completionHandler:nil];
+        }
+        else
+        {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:appURL]];
+        }
+    });
+}
+
+/// Open App Store.
++ (void)openAppStoreWithAppId:(NSString *)appId
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSString *urlString = [NSString stringWithFormat:@"https://itunes.apple.com/app/id%@", appId];
+        NSURL *url = [NSURL URLWithString:urlString];
+        if (@available(iOS 10.0, *))
+        {
+            [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+        }
+        else
+        {
+            [[UIApplication sharedApplication] openURL:url];
+        }
+    });
+}
+
+/// Open Safari.
++ (void)openSafariWithURL:(NSString *)url
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        NSString *tmpURL = url;
+        NSURL *URL = [NSURL URLWithString:tmpURL];
+        
+        if (@available(iOS 10.0, *))
+        {
+            [[UIApplication sharedApplication] openURL:URL options:@{} completionHandler:^(BOOL success) {
+                if (!success)
+                {
+                    if (![tmpURL hasPrefix:@"http://"])
+                    {
+                        // 先判断 http:// 能不能打开
+                        NSString *modifyURL = [NSString stringWithFormat:@"http://%@", tmpURL];
+                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:modifyURL] options:@{} completionHandler:^(BOOL success) {
+                            if (!success)
+                            {
+                                if (![tmpURL hasPrefix:@"https://"])
+                                {
+                                    // 再判断 https:// 能不能打开
+                                    NSString *modifyURL = [NSString stringWithFormat:@"https://%@", tmpURL];
+                                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:modifyURL] options:@{} completionHandler:nil];
+                                }
+                            }
+                        }];
+                    }
+                }
+            }];
+        } else {
+            BOOL res1 = [[UIApplication sharedApplication] openURL:URL];
+            if (!res1)
+            {
+                if (![tmpURL hasPrefix:@"http://"])
+                {
+                    // 先判断 http:// 能不能打开
+                    NSString *modifyURL = [NSString stringWithFormat:@"http://%@", tmpURL];
+                    BOOL res2 = [[UIApplication sharedApplication] openURL:[NSURL URLWithString:modifyURL]];
+                    if (!res2)
+                    {
+                        if (![tmpURL hasPrefix:@"https://"])
+                        {
+                            // 再判断 https:// 能不能打开
+                            NSString *modifyURL = [NSString stringWithFormat:@"https://%@", tmpURL];
+                            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:modifyURL]];
+                        }
+                    }
+                }
+            }
+        }
+    });
 }
 
 @end
