@@ -124,7 +124,7 @@
 //    }
 //    return nil;
     
-    //通过响应者链，获取此视图所在的视图控制器
+    // 通过响应者链，获取此视图所在的视图控制器
     UIResponder *next = self.nextResponder;
     do
     {
@@ -133,7 +133,7 @@
         {
             return (UIViewController *)next;
         }
-        //不停的指向下一个响应者
+        // 不停的指向下一个响应者
         next = next.nextResponder;
         
     }
@@ -230,6 +230,12 @@
             [childView removeFromSuperview];
         }
     }];
+}
+
+- (BOOL)bm_isSubviewForView:(UIView *)superView
+{
+    BOOL isSubview = ([self isDescendantOfView:superView] && ![self isEqual:superView]);
+    return isSubview;
 }
 
 - (void)bm_bringToFront

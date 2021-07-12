@@ -30,6 +30,8 @@
 
 #import "NSDictionary+BMCategory.h"
 
+#import "NSFileManager+BMCategory.h"
+
 #import "NSNumber+BMCategory.h"
 #import "NSDecimalNumber+BMCategory.h"
 

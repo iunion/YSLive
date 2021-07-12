@@ -224,6 +224,11 @@
         return @"";
     }
     
+    if (bsize <= 0)
+    {
+        return @"0.00B";
+    }
+    
     double convertedValue = bsize;
     NSInteger multiplyFactor = 0;
     //NSArray *tokens = [NSArray arrayWithObjects:@"B", @"KB", @"MB", @"GB", @"TB", nil];

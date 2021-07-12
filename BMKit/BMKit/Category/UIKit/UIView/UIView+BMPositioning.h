@@ -51,6 +51,8 @@
 - (void)bm_removeAllSubviews;
 - (void)bm_removeAllSubviewsWithClass:(Class)viewClass;
 
+- (BOOL)bm_isSubviewForView:(UIView *)superView;
+
 - (void)bm_bringToFront;
 - (void)bm_sendToBack;
 

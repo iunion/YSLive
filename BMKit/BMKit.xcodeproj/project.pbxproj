@@ -246,6 +246,10 @@
 		8701B124237165AA00A43607 /* BMTableViewActionBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8701B0DE237165AA00A43607 /* BMTableViewActionBar.m */; };
 		8706C50E2394D67200223C87 /* BMKitResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8706C50D2394D67200223C87 /* BMKitResources.bundle */; };
 		8706C5142395F73000223C87 /* BMKitImage.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8706C5132395F73000223C87 /* BMKitImage.xcassets */; };
+		87111641269C27A300B5ED21 /* NSData+BMCompress.h in Headers */ = {isa = PBXBuildFile; fileRef = 8711163F269C27A300B5ED21 /* NSData+BMCompress.h */; };
+		87111642269C27A300B5ED21 /* NSData+BMCompress.m in Sources */ = {isa = PBXBuildFile; fileRef = 87111640269C27A300B5ED21 /* NSData+BMCompress.m */; };
+		87111645269C2BB100B5ED21 /* NSFileManager+BMCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = 87111643269C2BB100B5ED21 /* NSFileManager+BMCategory.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		87111646269C2BB100B5ED21 /* NSFileManager+BMCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 87111644269C2BB100B5ED21 /* NSFileManager+BMCategory.m */; };
 		871C87C92623E1CE00AB898E /* BMStepCountDowmManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 871C87C72623E1CD00AB898E /* BMStepCountDowmManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		871C87CA2623E1CE00AB898E /* BMStepCountDowmManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 871C87C82623E1CE00AB898E /* BMStepCountDowmManager.m */; };
 		8742F87B24EF6E7600BDF294 /* BMProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 8742F87924EF6E7600BDF294 /* BMProgressHUD.m */; };
@@ -786,6 +790,10 @@
 		8701B0DE237165AA00A43607 /* BMTableViewActionBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMTableViewActionBar.m; sourceTree = "<group>"; };
 		8706C50D2394D67200223C87 /* BMKitResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = BMKitResources.bundle; sourceTree = "<group>"; };
 		8706C5132395F73000223C87 /* BMKitImage.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = BMKitImage.xcassets; sourceTree = "<group>"; };
+		8711163F269C27A300B5ED21 /* NSData+BMCompress.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSData+BMCompress.h"; sourceTree = "<group>"; };
+		87111640269C27A300B5ED21 /* NSData+BMCompress.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSData+BMCompress.m"; sourceTree = "<group>"; };
+		87111643269C2BB100B5ED21 /* NSFileManager+BMCategory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSFileManager+BMCategory.h"; sourceTree = "<group>"; };
+		87111644269C2BB100B5ED21 /* NSFileManager+BMCategory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager+BMCategory.m"; sourceTree = "<group>"; };
 		871C87C72623E1CD00AB898E /* BMStepCountDowmManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BMStepCountDowmManager.h; sourceTree = "<group>"; };
 		871C87C82623E1CE00AB898E /* BMStepCountDowmManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BMStepCountDowmManager.m; sourceTree = "<group>"; };
 		8742F87924EF6E7600BDF294 /* BMProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMProgressHUD.m; sourceTree = "<group>"; };
@@ -1245,6 +1253,8 @@
 				8701ADFB23714E6000A43607 /* NSDictionary+BMCategory.m */,
 				87A186DA2509CC3D00607E24 /* NSError+BMCategory.h */,
 				87A186DB2509CC3D00607E24 /* NSError+BMCategory.m */,
+				87111643269C2BB100B5ED21 /* NSFileManager+BMCategory.h */,
+				87111644269C2BB100B5ED21 /* NSFileManager+BMCategory.m */,
 				8701ADE023714E6000A43607 /* NSMutableArray+BMCategory.h */,
 				8701AE0523714E6000A43607 /* NSMutableArray+BMCategory.m */,
 				8701ADE723714E6000A43607 /* NSNumber+BMCategory.h */,
@@ -1266,6 +1276,8 @@
 				8701ADE623714E6000A43607 /* NSData+BMCategory.m */,
 				8701ADE323714E6000A43607 /* NSData+BMEncrypt.h */,
 				8701ADE523714E6000A43607 /* NSData+BMEncrypt.m */,
+				8711163F269C27A300B5ED21 /* NSData+BMCompress.h */,
+				87111640269C27A300B5ED21 /* NSData+BMCompress.m */,
 			);
 			path = NSData;
 			sourceTree = "<group>";
@@ -2341,6 +2353,7 @@
 				8701B109237165AA00A43607 /* BMImageDetailItem.h in Headers */,
 				8701B10A237165AA00A43607 /* BMDateTimeItem.h in Headers */,
 				8701B110237165AA00A43607 /* BMCheckBoxGroupItem.h in Headers */,
+				87111641269C27A300B5ED21 /* NSData+BMCompress.h in Headers */,
 				8701B0E3237165AA00A43607 /* BMTableViewImageDetailCell.h in Headers */,
 				8701B0FA237165AA00A43607 /* BMTableViewItem.h in Headers */,
 				8701B0E2237165AA00A43607 /* BMTableViewStepperInputCell.h in Headers */,
@@ -2402,6 +2415,7 @@
 				879019FA241727BF00FF38EC /* BMTZPhotoPickerController.h in Headers */,
 				8701AE6A2371512100A43607 /* BMApp.h in Headers */,
 				8701AE672371511200A43607 /* BMkitMacros.h in Headers */,
+				87111645269C2BB100B5ED21 /* NSFileManager+BMCategory.h in Headers */,
 				8701AEAC2371550000A43607 /* BMAlertView.h in Headers */,
 				8701AEA92371550000A43607 /* BMNoticeView.h in Headers */,
 				8701AEAD2371550000A43607 /* BMTools.h in Headers */,
@@ -2545,12 +2559,14 @@
 				8742FE3824F3A12A00BDF294 /* BMSDAnimatedImage.m in Sources */,
 				8701B114237165AA00A43607 /* BMImageDetailItem.m in Sources */,
 				8701B08D2371650F00A43607 /* BMCheckBoxGroup.m in Sources */,
+				87111646269C2BB100B5ED21 /* NSFileManager+BMCategory.m in Sources */,
 				8777C7BB23EBA9CD002002BF /* BMTabBarController.m in Sources */,
 				8742FE3F24F3A12A00BDF294 /* BMSDImageTransformer.m in Sources */,
 				879019CC2416530A00FF38EC /* BMAFURLRequestSerialization.m in Sources */,
 				8701AE1523714E6000A43607 /* UIView+BMInnerShadow.m in Sources */,
 				87F31B29267C77EE00D48641 /* BMTZVideoEditedPreviewController.m in Sources */,
 				8701AE2423714E6000A43607 /* UIDevice+BMCategory.m in Sources */,
+				87111642269C27A300B5ED21 /* NSData+BMCompress.m in Sources */,
 				8742FDE724F3A12A00BDF294 /* BMSDWebImageDownloaderResponseModifier.m in Sources */,
 				8701AE4523714E6000A43607 /* NSData+BMEncrypt.m in Sources */,
 				8701B0F4237165AA00A43607 /* BMTableViewCheckBoxGroupCell.m in Sources */,
@@ -2895,7 +2911,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210629;
+				CURRENT_PROJECT_VERSION = 20210712;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 2DPW2MS2H5;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -2932,7 +2948,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20210629;
+				CURRENT_PROJECT_VERSION = 20210712;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 2DPW2MS2H5;
 				DYLIB_COMPATIBILITY_VERSION = 1;

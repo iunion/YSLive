@@ -144,8 +144,36 @@ blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 #define BMUI_TAB_BAR_HEIGHT               (BMIS_IPHONEXANDP ? (49.0f+BMUI_HOME_INDICATOR_HEIGHT) : 49.0f)
 #define BMUI_STATUS_BAR_HEIGHT            (BMIS_IPHONEXANDP ? 44.0f : 20.0f)
 
-#define BMUI_SCREEN_WIDTH                 ([[UIScreen mainScreen] bounds].size.width)
-#define BMUI_SCREEN_HEIGHT                ([[UIScreen mainScreen] bounds].size.height)
+
+//获取屏幕宽度、高度
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_8_0 // 当前Xcode支持iOS8及以上
+    #ifndef BMUI_SCREEN_WIDTH
+        #define BMUI_SCREEN_WIDTH   ([[UIScreen mainScreen] respondsToSelector:@selector(nativeBounds)] ? [UIScreen mainScreen].nativeBounds.size.width/[UIScreen mainScreen].nativeScale : [UIScreen mainScreen].bounds.size.width)
+    #endif
+    
+    #ifndef BMUI_SCREEN_HEIGHT
+        #define BMUI_SCREEN_HEIGHT ([[UIScreen mainScreen] respondsToSelector:@selector(nativeBounds)] ? [UIScreen mainScreen].nativeBounds.size.height/[UIScreen mainScreen].nativeScale : [UIScreen mainScreen].bounds.size.height)
+    #endif
+
+    #ifndef BMUI_SCREEN_SIZE
+        #define BMUI_SCREEN_SIZE    ([[UIScreen mainScreen] respondsToSelector:@selector(nativeBounds)] ? CGSizeMake([UIScreen mainScreen].nativeBounds.size.width/[UIScreen mainScreen].nativeScale, [UIScreen mainScreen].nativeBounds.size.height/[UIScreen mainScreen].nativeScale) : [UIScreen mainScreen].bounds.size)
+    #endif
+#else
+    #ifndef BMUI_SCREEN_WIDTH
+        #define BMUI_SCREEN_WIDTH   ([UIScreen mainScreen].bounds.size.width)
+    #endif
+
+    #ifndef BMUI_SCREEN_HEIGHT
+        #define BMUI_SCREEN_HEIGHT ([UIScreen mainScreen].bounds.size.height)
+    #endif
+
+    #ifndef BMUI_SCREEN_SIZE
+        #define BMUI_SCREEN_SIZE    ([UIScreen mainScreen].bounds.size)
+    #endif
+#endif
+
+//#define BMUI_SCREEN_WIDTH                 ([[UIScreen mainScreen] bounds].size.width)
+//#define BMUI_SCREEN_HEIGHT                ([[UIScreen mainScreen] bounds].size.height)
 
 //#define BMUI_SCREEN_WIDTH_ROTATE          ([[UIScreen mainScreen] bounds].size.height)
 //#define BMUI_SCREEN_HEIGHT_ROTATE         ([[UIScreen mainScreen] bounds].size.width)
