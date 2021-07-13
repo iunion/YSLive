@@ -141,6 +141,14 @@
     if ([platform isEqualToString:@"iPhone11,4"])   return @"iPhone XS MAX";
     if ([platform isEqualToString:@"iPhone11,6"])   return @"iPhone XS MAX";
     if ([platform isEqualToString:@"iPhone11,8"])   return @"iPhone XR";
+    if ([platform isEqualToString:@"iPhone12,1"])   return @"iPhone 11";
+    if ([platform isEqualToString:@"iPhone12,3"])   return @"iPhone 11 Pro";
+    if ([platform isEqualToString:@"iPhone12,5"])   return @"iPhone 11 Pro Max";
+    if ([platform isEqualToString:@"iPhone12,8"])   return @"iPhone SE (2nd generation)";
+    if ([platform isEqualToString:@"iPhone13,1"])   return @"iPhone 12 mini";
+    if ([platform isEqualToString:@"iPhone13,2"])   return @"iPhone 12";
+    if ([platform isEqualToString:@"iPhone13,3"])   return @"iPhone 12 Pro";
+    if ([platform isEqualToString:@"iPhone13,4"])   return @"iPhone 12 Pro Max";
 
     // iPod
     if ([platform isEqualToString:@"iPod1,1"])      return @"iPod Touch 1G";
@@ -149,6 +157,8 @@
     if ([platform isEqualToString:@"iPod4,1"])      return @"iPod Touch 4G";
     if ([platform isEqualToString:@"iPod5,1"])      return @"iPod Touch 5G";
     if ([platform isEqualToString:@"iPod7,1"])      return @"iPod Touch 6G";
+    if ([platform isEqualToString:@"iPod9,1"])      return @"iPod Touch 7G";
+
     // iPad
     if ([platform isEqualToString:@"iPad1,1"])      return @"iPad 1";
     if ([platform isEqualToString:@"iPad2,1"])      return @"iPad 2 (WiFi)";
@@ -166,6 +176,7 @@
     if ([platform isEqualToString:@"iPad4,3"])      return @"iPad Air (China)";
     if ([platform isEqualToString:@"iPad5,3"])      return @"iPad Air 2 (WiFi)";
     if ([platform isEqualToString:@"iPad5,4"])      return @"iPad Air 2 (Cellular)";
+    
     // iPad mini
     if ([platform isEqualToString:@"iPad2,5"])      return @"iPad mini (WiFi)";
     if ([platform isEqualToString:@"iPad2,6"])      return @"iPad mini (GSM)";
@@ -195,6 +206,8 @@
     if ([platform isEqualToString:@"iPad7,4"])      return @"iPad Pro (10.5-inch)";
     if ([platform isEqualToString:@"iPad7,5"])      return @"iPad 6G";
     if ([platform isEqualToString:@"iPad7,6"])      return @"iPad 6G";
+    if ([platform isEqualToString:@"iPad7,11"])      return @"iPad 7";
+    if ([platform isEqualToString:@"iPad7,12"])      return @"iPad 7";
 
     if ([platform isEqualToString:@"iPad8,1"])      return @"iPad Pro (11-inch)";
     if ([platform isEqualToString:@"iPad8,2"])      return @"iPad Pro (11-inch)";
@@ -204,10 +217,20 @@
     if ([platform isEqualToString:@"iPad8,6"])      return @"iPad Pro (12.9-inch) 3G";
     if ([platform isEqualToString:@"iPad8,7"])      return @"iPad Pro (12.9-inch) 3G";
     if ([platform isEqualToString:@"iPad8,8"])      return @"iPad Pro (12.9-inch) 3G";
+    if ([platform isEqualToString:@"iPad8,9"])      return @"iPad Pro 2 11.0";
+    if ([platform isEqualToString:@"iPad8,10"])     return @"iPad Pro 2 11.0";
+    if ([platform isEqualToString:@"iPad8,11"])     return @"iPad Pro 4 12.9";
+    if ([platform isEqualToString:@"iPad8,12"])     return @"iPad Pro 4 12.9";
+    
     if ([platform isEqualToString:@"iPad11,1"])     return @"iPad Mini 5G";
     if ([platform isEqualToString:@"iPad11,2"])     return @"iPad Mini 5G";
     if ([platform isEqualToString:@"iPad11,3"])     return @"iPad Air 3G";
     if ([platform isEqualToString:@"iPad11,4"])     return @"iPad Air 3G";
+    if ([platform isEqualToString:@"iPad11,6"])     return @"iPad 8";
+    if ([platform isEqualToString:@"iPad11,7"])     return @"iPad 8";
+
+    if ([platform isEqualToString:@"iPad13,1"])     return @"iPad Air 4";
+    if ([platform isEqualToString:@"iPad13,2"])     return @"iPad Air 4";
 
     // Apple TV
     if ([platform isEqualToString:@"AppleTV2,1"])   return @"Apple TV (2nd generation)";
@@ -577,27 +600,27 @@
 + (NSString *)bm_totalDiskSpaceString
 {
     NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfFileSystemForPath:NSHomeDirectory() error:nil];
-    float totalSpace = [[attributes objectForKey:NSFileSystemSize] floatValue];
+    double totalSpace = [[attributes objectForKey:NSFileSystemSize] doubleValue];
     return [NSString bm_storeStringWithBitSize:totalSpace];
 }
 
 + (NSNumber *)bm_usedDiskSpace
 {
     NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfFileSystemForPath:NSHomeDirectory() error:nil];
-    float totalSpace = [[attributes objectForKey:NSFileSystemSize] floatValue];
-    float freeSpace = [[attributes objectForKey:NSFileSystemFreeSize] floatValue];
-    float usedSpace = totalSpace - freeSpace;
+    double totalSpace = [[attributes objectForKey:NSFileSystemSize] doubleValue];
+    double freeSpace = [[attributes objectForKey:NSFileSystemFreeSize] doubleValue];
+    double usedSpace = totalSpace - freeSpace;
     
-    return [NSNumber numberWithFloat:usedSpace];
+    return [NSNumber numberWithDouble:usedSpace];
 }
 
 + (NSString *)bm_usedDiskSpaceString
 {
     // 通过NSFileManager所有信息
     NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfFileSystemForPath:NSHomeDirectory() error:nil];
-    float totalSpace = [[attributes objectForKey:NSFileSystemSize] floatValue];
-    float freeSpace = [[attributes objectForKey:NSFileSystemFreeSize] floatValue];
-    float usedSpace = totalSpace - freeSpace;
+    double totalSpace = [[attributes objectForKey:NSFileSystemSize] doubleValue];
+    double freeSpace = [[attributes objectForKey:NSFileSystemFreeSize] doubleValue];
+    double usedSpace = totalSpace - freeSpace;
     return [NSString bm_storeStringWithBitSize:usedSpace];
 }
 
@@ -610,7 +633,7 @@
 + (NSString *)bm_freeDiskSpaceString
 {
     NSDictionary *attributes = [[NSFileManager defaultManager] attributesOfFileSystemForPath:NSHomeDirectory() error:nil];
-    float freeSpace = [[attributes objectForKey:NSFileSystemFreeSize] floatValue];
+    double freeSpace = [[attributes objectForKey:NSFileSystemFreeSize] doubleValue];
     return [NSString bm_storeStringWithBitSize:freeSpace];
 }
 
