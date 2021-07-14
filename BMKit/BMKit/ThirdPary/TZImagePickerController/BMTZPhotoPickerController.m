@@ -717,11 +717,8 @@ static CGFloat itemMargin = 5;
     AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
     if ((authStatus == AVAuthorizationStatusRestricted || authStatus ==AVAuthorizationStatusDenied)) {
         
-        NSDictionary *infoDict = [BMTZCommonTools tz_getInfoDictionary];
         // 无权限 做一个友好的提示
-        NSString *appName = [infoDict valueForKey:@"CFBundleDisplayName"];
-        if (!appName) appName = [infoDict valueForKey:@"CFBundleName"];
-        if (!appName) appName = [infoDict valueForKey:@"CFBundleExecutable"];
+        NSString *appName = [BMTZCommonTools tz_getAppName];
 
         NSString *title = [NSBundle bmtz_localizedStringForKey:@"Can not use camera"];
         NSString *message = [NSString stringWithFormat:[NSBundle bmtz_localizedStringForKey:@"Please allow %@ to access your camera in \"Settings -> Privacy -> Camera\""],appName];

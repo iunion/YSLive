@@ -4,7 +4,7 @@
 //
 //  Created by 谭真 on 15/12/24.
 //  Copyright © 2015年 谭真. All rights reserved.
-//  version 3.6.0 - 2021.04.02
+//  version 3.6.2 - 2021.07.07
 //  更多信息，请前往项目的github地址：https://github.com/banchichen/TZImagePickerController
 
 #import "BMTZImagePickerController.h"
@@ -188,10 +188,7 @@
             _tipLabel.textColor = [UIColor blackColor];
             _tipLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 
-            NSDictionary *infoDict = [BMTZCommonTools tz_getInfoDictionary];
-            NSString *appName = [infoDict valueForKey:@"CFBundleDisplayName"];
-            if (!appName) appName = [infoDict valueForKey:@"CFBundleName"];
-            if (!appName) appName = [infoDict valueForKey:@"CFBundleExecutable"];
+            NSString *appName = [BMTZCommonTools tz_getAppName];
             NSString *tipText = [NSString stringWithFormat:[NSBundle bmtz_localizedStringForKey:@"Allow %@ to access your album in \"Settings -> Privacy -> Photos\""],appName];
             _tipLabel.text = tipText;
             [self.view addSubview:_tipLabel];
@@ -960,6 +957,20 @@
         infoDict = [NSDictionary dictionaryWithContentsOfFile:path];
     }
     return infoDict ? infoDict : @{};
+}
+
++ (NSString *)tz_getAppName {
+    NSDictionary *infoDict = [self tz_getInfoDictionary];
+    NSString *appName = [infoDict valueForKey:@"CFBundleDisplayName"];
+    if (!appName) appName = [infoDict valueForKey:@"CFBundleName"];
+    if (!appName) appName = [infoDict valueForKey:@"CFBundleExecutable"];
+    if (!appName) {
+        infoDict = [NSBundle mainBundle].infoDictionary;
+        appName = [infoDict valueForKey:@"CFBundleDisplayName"];
+        if (!appName) appName = [infoDict valueForKey:@"CFBundleName"];
+        if (!appName) appName = [infoDict valueForKey:@"CFBundleExecutable"];
+    }
+    return appName;
 }
 
 + (BOOL)tz_isRightToLeftLayout {

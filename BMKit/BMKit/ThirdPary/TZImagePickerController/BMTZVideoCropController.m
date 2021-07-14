@@ -180,6 +180,7 @@
     CGFloat doneButtonWidth = [_doneButton.currentTitle boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX) options:NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16]} context:nil].size.width;
     _cancelButton.frame = CGRectMake(12, self.view.bmtz_height - toolBarHeight, 44, 44);
     [_cancelButton sizeToFit];
+    _cancelButton.bmtz_height = 44;
     _doneButton.frame = CGRectMake(self.view.bmtz_width - doneButtonWidth - 12, self.view.bmtz_height - toolBarHeight, doneButtonWidth, 44);
     _playButton.frame = CGRectMake(0, statusBarAndNaviBarHeight, self.view.bmtz_width, self.view.bmtz_height - statusBarAndNaviBarHeight - toolBarHeight);
     

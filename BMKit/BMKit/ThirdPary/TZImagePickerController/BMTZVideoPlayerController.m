@@ -179,6 +179,7 @@
     if (tzImagePickerVc.allowEditVideo) {
         _editButton.frame = CGRectMake(12, 0, 44, 44);
         [_editButton sizeToFit];
+        _editButton.bmtz_height = 44;
     }
     if (tzImagePickerVc.videoPreviewPageDidLayoutSubviewsBlock) {
         tzImagePickerVc.videoPreviewPageDidLayoutSubviewsBlock(_playButton, _toolBar, _editButton, _doneButton);
