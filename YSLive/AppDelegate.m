@@ -161,9 +161,7 @@
 {
     /*
      直播: enterlive
-     
-     会议: entermeeting
-     
+    
      小班课: enterclassroom    这个是网页跳转APP的scheme头
      */
 

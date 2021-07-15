@@ -469,29 +469,10 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         self.fullFloatVideoView.rightViewMaxRight = self.raiseHandsBtn.bm_left - 10;
     }
     
-    // 会议默认视频布局
-    if (self.appUseTheType == CHRoomUseTypeMeeting)
+    if (!self.liveManager.isClassBegin)
     {
-        self.roomLayout = defaultRoomLayout = CHRoomLayoutType_VideoLayout;
-        
-        [self handleSignalingSetRoomLayout:self.roomLayout withPeerId:nil withSourceId:nil];
+        [self handleSignalingSetRoomLayout:self.roomLayout withPeerId:YSCurrentUser.peerID withSourceId:sCHUserDefaultSourceId];
     }
-    else
-    {
-//        if (!self.liveManager.isClassBegin && self.liveManager.roomModel.roomUserType == CHRoomUserType_More)
-        if (!self.liveManager.isClassBegin)
-        {
-//            if (self.roomLayout == CHRoomLayoutType_DoubleLayout)
-//            {
-//                [self handleSignalingToDoubleTeacherWithData:@{@"one2one":@"nested"}];
-//            }
-//            else
-            {
-                [self handleSignalingSetRoomLayout:self.roomLayout withPeerId:YSCurrentUser.peerID withSourceId:sCHUserDefaultSourceId];
-            }
-        }
-    }
-
 }
 
 #pragma mark 隐藏状态栏
@@ -3546,27 +3527,6 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
                         [YSCurrentUser sendToPublishStateUPTellWhom:whom];
                     }
                 }
-            }
-        }
-    }
-    else if (self.appUseTheType == CHRoomUseTypeMeeting)
-    {//会议，进教室默认上台
-        if (self.liveManager.isClassBegin && (self.videoSequenceArr.count < maxVideoCount || [self.videoViewArrayDic.allKeys containsObject:YSCurrentUser.peerID]) && YSCurrentUser.role != CHUserType_Patrol)
-        {
-            if (!self.liveManager.isGroupRoom)
-            {
-                NSString *whom = CHRoomPubMsgTellAll;
-                if (self.liveManager.isBigRoom)
-                {
-                    whom = YSCurrentUser.peerID;
-                    [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:whom propertyKey:sCHUserPublishstate value:@(CHUser_PublishState_UP)];
-                }
-                else
-                {
-                    [YSCurrentUser sendToPublishStateUPTellWhom:whom];
-                }
-                
-                [self.liveManager setPropertyOfUid:YSCurrentUser.peerID tell:CHRoomPubMsgTellAll propertyKey:sCHUserCandraw value:@(true)];
             }
         }
     }

@@ -520,7 +520,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
     CHRoomUseType appUseTheType = liveManager.room_UseType;
 
     // 3: 小班课  4: 直播  6： 会议
-    if (appUseTheType == CHRoomUseTypeSmallClass || appUseTheType == CHRoomUseTypeMeeting)
+    if (appUseTheType == CHRoomUseTypeSmallClass)
     {
         [YSLiveSkinManager shareInstance].skinBundle = [CHSessionManager sharedInstance].skinBundle;
         

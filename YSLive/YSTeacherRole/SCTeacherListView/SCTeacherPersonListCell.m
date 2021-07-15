@@ -215,15 +215,8 @@
     NSString *cupNum = [NSString stringWithFormat:@"x %@",giftNumber <= 99 ? @(giftNumber) : @"99+"];
     [self.cupButton setTitle:cupNum forState:UIControlStateNormal];
 
-    if ([YSLiveManager sharedInstance].room_UseType == CHRoomUseTypeMeeting)
-    {
-        self.cupButton.hidden = YES;
-    }
-    else
-    {
-        self.cupButton.hidden = NO;
-    }
-
+    self.cupButton.hidden = NO;
+    
     if (userModel.role == CHUserType_Assistant )
     {
         self.upPlatformBtn.enabled = NO;

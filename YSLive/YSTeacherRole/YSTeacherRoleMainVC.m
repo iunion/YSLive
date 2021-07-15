@@ -437,19 +437,9 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
     //创建上下课按钮
     [self setupClassBeginButton];
     
-    // 会议默认视频布局
-    if (self.appUseTheType == CHRoomUseTypeMeeting)
+    if (!self.liveManager.isClassBegin)
     {
-        self.roomLayout = defaultRoomLayout = CHRoomLayoutType_VideoLayout;
-        [self handleSignalingSetRoomLayout:self.roomLayout withPeerId:nil withSourceId:nil];
-    }
-    else
-    {
-        if (!self.liveManager.isClassBegin)
-        {
-
-            [self handleSignalingSetRoomLayout:self.roomLayout withPeerId:YSCurrentUser.peerID withSourceId:sCHUserDefaultSourceId];
-        }
+        [self handleSignalingSetRoomLayout:self.roomLayout withPeerId:YSCurrentUser.peerID withSourceId:sCHUserDefaultSourceId];
     }
     
     [self.fullFloatVideoView bm_bringToFront];
@@ -4151,25 +4141,12 @@ static NSInteger playerFirst = 0; /// 播放器播放次数限制
         }
     }
     
-    //NO:上下布局  YES:左右布局
-    if (self.appUseTheType == CHRoomUseTypeMeeting)
+    CHRoomLayoutType roomLayout = CHRoomLayoutType_VideoLayout;
+    if (!mode)
     {
-        CHRoomLayoutType roomLayout = CHRoomLayoutType_VideoLayout;
-        if (!mode)
-        {
-            roomLayout = CHRoomLayoutType_AroundLayout;
-        }
-        [self.liveManager sendSignalingToChangeLayoutWithLayoutType:roomLayout appUserType:CHRoomUseTypeMeeting withFouceUserId:nil withStreamId:nil];
+        roomLayout = CHRoomLayoutType_AroundLayout;
     }
-    else
-    {
-        CHRoomLayoutType roomLayout = CHRoomLayoutType_VideoLayout;
-        if (!mode)
-        {
-            roomLayout = CHRoomLayoutType_AroundLayout;
-        }
-        [self.liveManager sendSignalingToChangeLayoutWithLayoutType:roomLayout];
-    }
+    [self.liveManager sendSignalingToChangeLayoutWithLayoutType:roomLayout];
 }
 
 #pragma mark 切换窗口布局变化

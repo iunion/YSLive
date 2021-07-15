@@ -1391,14 +1391,6 @@ typedef void (^YSRoomLeftDoBlock)(void);
                         weakSelf.room_UseTheType = CHRoomUseTypeLiveRoom;
                         [weakSelf joinRoom];
                         return;
-                    // 会议室
-                    case 6:
-                        weakSelf.room_UseTheType = CHRoomUseTypeMeeting;
-                        [weakSelf showRoleSelectView];
-                        [weakSelf.view endEditing:YES];
-                        weakSelf.passwordTextField.inputTextField.text = nil;
-                        return;
-                        
                     default:
                         break;
                 }
@@ -1754,51 +1746,26 @@ typedef void (^YSRoomLeftDoBlock)(void);
             
             [alertView addSubview:button];
             
-            if (self.room_UseTheType == CHRoomUseTypeMeeting)
+            if (i == 0)
             {
-                if (i == 0)
-                {
-                    [button setTitle:YSLoginLocalized(@"Role.Host") forState:UIControlStateNormal];
-                    self.teacherRoleBtn = button;
-                    
-                }
-                else if (i == 1)
-                {
-                    [button setTitle:YSLoginLocalized(@"Role.Attendee") forState:UIControlStateNormal];
-                    button.selected = YES;
-                    self.selectedRoleBtn = button;
-                    self.studentRoleBtn = button;
-                    
-                }
-                else if (i == 2)
-                {
-                    [button setTitle:YSLoginLocalized(@"Role.PatrolMeeting") forState:UIControlStateNormal];
-                    self.patrolRoleBtn = button;
-                }
+                [button setTitle:YSLoginLocalized(@"Role.Teacher") forState:UIControlStateNormal];
+                self.teacherRoleBtn = button;
             }
-            else
+            else if (i == 1)
             {
-                if (i == 0)
-                {
-                    [button setTitle:YSLoginLocalized(@"Role.Teacher") forState:UIControlStateNormal];
-                    self.teacherRoleBtn = button;
-                }
-                else if (i == 1)
-                {
-                    [button setTitle:YSLoginLocalized(@"Role.Student") forState:UIControlStateNormal];
-                    button.selected = YES;
-                    self.selectedRoleBtn = button;
-                    self.studentRoleBtn = button;
-                }
-                else if (i == 2)
-                {
-                    [button setTitle:YSLoginLocalized(@"Role.Patrol") forState:UIControlStateNormal];
-                    self.patrolRoleBtn = button;
-                }
-                else if (i == 3)
-                {
-                    
-                }
+                [button setTitle:YSLoginLocalized(@"Role.Student") forState:UIControlStateNormal];
+                button.selected = YES;
+                self.selectedRoleBtn = button;
+                self.studentRoleBtn = button;
+            }
+            else if (i == 2)
+            {
+                [button setTitle:YSLoginLocalized(@"Role.Patrol") forState:UIControlStateNormal];
+                self.patrolRoleBtn = button;
+            }
+            else if (i == 3)
+            {
+                
             }
             
             button.titleLabel.font = UI_FONT_14;
@@ -1834,18 +1801,11 @@ typedef void (^YSRoomLeftDoBlock)(void);
     self.passwordMask.hidden = self.needpwd;
     
     self.roleSelectView.hidden = NO;
-    if (self.room_UseTheType == CHRoomUseTypeMeeting)
-    {
-            [self.studentRoleBtn setTitle:YSLoginLocalized(@"Role.Attendee") forState:UIControlStateNormal];
-            [self.teacherRoleBtn setTitle:YSLoginLocalized(@"Role.Host") forState:UIControlStateNormal];
-            [self.patrolRoleBtn setTitle:YSLoginLocalized(@"Role.PatrolMeeting") forState:UIControlStateNormal];
-    }
-    else
-    {
-        [self.studentRoleBtn setTitle:YSLoginLocalized(@"Role.Student") forState:UIControlStateNormal];
-        [self.teacherRoleBtn setTitle:YSLoginLocalized(@"Role.Teacher") forState:UIControlStateNormal];
-        [self.patrolRoleBtn setTitle:YSLoginLocalized(@"Role.Patrol") forState:UIControlStateNormal];
-    }
+    
+    [self.studentRoleBtn setTitle:YSLoginLocalized(@"Role.Student") forState:UIControlStateNormal];
+    [self.teacherRoleBtn setTitle:YSLoginLocalized(@"Role.Teacher") forState:UIControlStateNormal];
+    [self.patrolRoleBtn setTitle:YSLoginLocalized(@"Role.Patrol") forState:UIControlStateNormal];
+    
 }
 
 - (void)okBtnClick
@@ -2063,8 +2023,8 @@ typedef void (^YSRoomLeftDoBlock)(void);
         self.room_UseTheType = appUseTheType;
     }
            
-    // 3: 小班课  4: 直播  6： 会议
-    BOOL isSmallClass = (self.room_UseTheType == CHRoomUseTypeSmallClass || self.room_UseTheType == CHRoomUseTypeMeeting);
+    // 3: 小班课  4: 直播
+    BOOL isSmallClass = self.room_UseTheType == CHRoomUseTypeSmallClass;
     
     if (isSmallClass)
     {
@@ -2186,7 +2146,7 @@ typedef void (^YSRoomLeftDoBlock)(void);
 - (void)theRoomNeedPassword
 {
     // 需要密码
-     if ( self.room_UseTheType == CHRoomUseTypeMeeting || self.room_UseTheType == CHRoomUseTypeSmallClass)
+     if (self.room_UseTheType == CHRoomUseTypeSmallClass)
     {
 //        self.roleSelectView.hidden = NO;
         [self showRoleSelectView];

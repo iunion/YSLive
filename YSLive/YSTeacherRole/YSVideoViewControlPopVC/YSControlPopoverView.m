@@ -353,13 +353,6 @@
         }
     }
     
-    if (self.appUseTheType == CHRoomUseTypeMeeting)
-    {
-        /// 会议将奖杯移除
-        [self.btnArray removeObject:self.allGiftCupBtn];
-        [self.btnArray removeObject:self.giftCupBtn];
-    }
-    
     if (self.roomtype == CHRoomUserType_One && !self.isNested)
     {// 1V1 且 画中画的情况下老师视频是 竖排的
         

@@ -537,7 +537,7 @@
     self.maskGroupRoomImageView.bm_size = CGSizeMake(width, width);
     [self.maskGroupRoomImageView bm_centerInSuperView];
     
-    if (self.appUseTheType == CHRoomUseTypeLiveRoom || self.appUseTheType == CHRoomUseTypeMeeting || self.roomUser.role == CHUserType_Teacher || self.roomUser.role == CHUserType_Assistant)
+    if (self.appUseTheType == CHRoomUseTypeLiveRoom || self.roomUser.role == CHUserType_Teacher || self.roomUser.role == CHUserType_Assistant)
     {
         self.cupImageView.hidden = YES;
         self.cupNumLabel.hidden = YES;

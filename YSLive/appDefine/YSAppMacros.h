@@ -14,9 +14,8 @@
 
 #define YSAPP_APPNAME               @"YSLive"
 #define YS_SCBUNDLE_NAME            @ "YSResources.bundle"
-#define YS_MEETINGBUNDLE_NAME       @ "YSMeetingResources.bundle"
 
-#define YS_BUNDLE_NAME      ([YSLiveManager sharedInstance].room_UseType == CHRoomUseTypeMeeting) ? YS_MEETINGBUNDLE_NAME : YS_SCBUNDLE_NAME
+#define YS_BUNDLE_NAME      YS_SCBUNDLE_NAME
 #define YSAPP_Localized     [NSBundle bundleWithPath:[[NSBundle bm_mainResourcePath] stringByAppendingPathComponent:YS_BUNDLE_NAME]]
 #define YSLocalized(s)      [YSAPP_Localized localizedStringForKey:s value:@"" table:nil]
 
