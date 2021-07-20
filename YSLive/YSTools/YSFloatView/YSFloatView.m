@@ -25,6 +25,7 @@
 
 @property (nonatomic, strong) UIImageView *backImageView;
 
+@property (nonatomic, weak) UIView *contentBgView;
 @property (nonatomic, weak) UIView *contentView;
 
 
@@ -120,11 +121,18 @@
     contentView.frame = self.bounds;
 }
 
+- (void)setContentBgView:(UIView *)contentBgView
+{
+    _contentBgView = contentBgView;
+    contentBgView.frame = self.bounds;
+}
+
 - (void)setFrame:(CGRect)frame
 {
     [super setFrame:frame];
     self.backScrollView.frame = self.bounds;
     self.backImageView.frame = self.bounds;
+    self.contentBgView.frame = self.bounds;
     self.contentView.frame = self.bounds;
 }
 
@@ -393,10 +401,33 @@
     }
 }
 
+- (void)showWithContentBgView:(UIView *)contentBgView
+{
+    if (self.contentView)
+    {
+        [self.backScrollView insertSubview:contentBgView belowSubview:self.contentView];
+    }
+    else
+    {
+        [self.backScrollView addSubview:contentBgView];
+    }
+    [self setContentBgView:contentBgView];
+}
+
 - (void)showWithContentView:(UIView *)contentView
 {
     [self.backScrollView addSubview:contentView];
     [self setContentView:contentView];
+}
+
+- (void)cleanContentBg
+{
+    if (self.contentBgView.superview)
+    {
+        [self.contentBgView removeFromSuperview];
+    }
+    
+    self.contentBgView = nil;
 }
 
 - (void)cleanContent

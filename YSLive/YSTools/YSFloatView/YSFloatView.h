@@ -16,6 +16,7 @@ typedef void(^YSFloatViewClickBlock)(void);
 
 @property (nonatomic, strong, readonly) UIScrollView *backScrollView;
 
+@property (nonatomic, weak, readonly) UIView *contentBgView;
 @property (nonatomic, weak, readonly) UIView *contentView;
 
 @property (nonatomic, assign) BOOL canGestureRecognizer;
@@ -52,10 +53,12 @@ typedef void(^YSFloatViewClickBlock)(void);
 @property (nullable, nonatomic, copy) YSFloatViewClickBlock clickBlock;
 
 // 加载内容
+- (void)showWithContentBgView:(UIView *)contentBgView;
 - (void)showWithContentView:(UIView *)contentView;
 // 坐标调整
 - (void)stayMove;
 
+- (void)cleanContentBg;
 - (void)cleanContent;
 
 - (void)showMp4WaitingView;

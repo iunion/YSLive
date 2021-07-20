@@ -126,13 +126,15 @@
 /// Mp3播放动画
 @property (nonatomic, strong) UIImageView *playMp3ImageView;
 
+@property (nonatomic, strong) YSFloatView *whiteBoardBackgroundView;
+@property (nonatomic, strong) UIButton *whiteBoardFullScreenBtn;
 /// Mp4
-@property (nonatomic, strong) YSFloatView *mp4BgView;
+//@property (nonatomic, strong) YSFloatView *mp4BgView;
 @property (nonatomic, strong) UIView *mp4View;
 /// 是否mp4全屏
 @property (nonatomic, assign) BOOL isMp4FullScreen;
 /// mp4全屏按钮
-@property (nonatomic, strong) UIButton *mp4FullScreenBtn;
+//@property (nonatomic, strong) UIButton *mp4FullScreenBtn;
 
 /// 白板视频标注视图
 @property (nonatomic, strong) CHWBMediaMarkView *mediaMarkView;
@@ -258,6 +260,7 @@
     [self setupBarrage];
     
     [self makeMp3Animation];
+    [self setupWhiteBoardView];
     [self setupMp4UI];
     
     [self addControlMainVideoAudioView];
@@ -629,33 +632,35 @@
     [self.view addSubview:self.playMp3ImageView];
 }
 
-- (void)setupMp4UI
+- (void)setupWhiteBoardView
 {
     /// 是否mp4全屏
     self.isMp4FullScreen = NO;
     
-    self.mp4BgView = [[YSFloatView alloc] initWithFrame:CGRectMake(0, self.view.bm_height-self.m_ScrollPageView.bm_height, BMUI_SCREEN_WIDTH, self.m_ScrollPageView.bm_height)];
-    self.mp4BgView.backgroundColor = [UIColor blackColor];
-    self.mp4BgView.showWaiting = YES;
-    [self.m_ScrollPageView.scrollView addSubview:self.mp4BgView];
-    self.mp4BgView.frame = self.m_ScrollPageView.bounds;
+    self.whiteBordView.frame = self.whiteBoardBackgroundView.bounds;
+    [self.whiteBoardBackgroundView showWithContentBgView:self.whiteBordView];
+    [self.liveManager.whiteBoardManager refreshMainWhiteBoard];
     
-    UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mp4ViewClicked:)];
-    [self.mp4BgView addGestureRecognizer:tapGesture];
+    self.whiteBoardFullScreenBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.whiteBoardBackgroundView addSubview:self.whiteBoardFullScreenBtn];
+    [self.whiteBoardBackgroundView bringSubviewToFront:self.whiteBoardFullScreenBtn];
+    [self.whiteBoardFullScreenBtn setBackgroundImage:YSSkinElementImage(@"live_mp4_full", @"iconNor") forState:UIControlStateNormal];
+    [self.whiteBoardFullScreenBtn setBackgroundImage:YSSkinElementImage(@"live_mp4_full", @"iconSel") forState:UIControlStateSelected];
+    self.whiteBoardFullScreenBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH - 15 - 40, self.whiteBoardBackgroundView.bm_height - 15 - 40, 40, 40);
+    [self.whiteBoardFullScreenBtn addTarget:self action:@selector(whiteBoardFullScreenBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+
+- (void)setupMp4UI
+{
+
     
-    self.mp4View = [[UIView alloc] initWithFrame:self.mp4BgView.bounds];
+//    UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(mp4ViewClicked:)];
+//    [self.mp4BgView addGestureRecognizer:tapGesture];
+    
+    self.mp4View = [[UIView alloc] initWithFrame:self.whiteBoardBackgroundView.bounds];
     self.mp4View.backgroundColor = [UIColor clearColor];
-    [self.mp4BgView showWithContentView:self.mp4View];
-    
-    self.mp4BgView.hidden = YES;
-    
-    self.mp4FullScreenBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.mp4BgView addSubview:self.mp4FullScreenBtn];
-    [self.mp4BgView bringSubviewToFront:self.mp4FullScreenBtn];
-    [self.mp4FullScreenBtn setBackgroundImage:YSSkinElementImage(@"live_mp4_full", @"iconNor") forState:UIControlStateNormal];
-    [self.mp4FullScreenBtn setBackgroundImage:YSSkinElementImage(@"live_mp4_full", @"iconSel") forState:UIControlStateSelected];
-    self.mp4FullScreenBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH - 15 - 40, self.mp4BgView.bm_height - 15 - 40, 40, 40);
-    [self.mp4FullScreenBtn addTarget:self action:@selector(mp4FullScreenBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [self.whiteBoardBackgroundView showWithContentView:self.mp4View];
 }
 
 
@@ -1376,16 +1381,16 @@
         [self changeTopVideoToOriginalFrame];
     }
     self.fullScreenBtn.enabled = NO;
-    self.mp4BgView.hidden = NO;
-    [self.mp4BgView bm_bringToFront];
-    [self.mp4FullScreenBtn bm_bringToFront];
+//    self.mp4BgView.hidden = NO;
+    [self.whiteBoardBackgroundView bm_bringToFront];
+    [self.whiteBoardFullScreenBtn bm_bringToFront];
 }
 
 - (void)handleStopMovieStreamID:(NSString *)movieStreamID userID:(NSString *)userID
 {
     [self.liveManager stopVideoWithUserId:userID streamID:movieStreamID isMediaStream:YES];
     self.fullScreenBtn.enabled = YES;
-    self.mp4BgView.hidden = YES;
+//    self.mp4BgView.hidden = YES;
 }
 
 #pragma mark 白板视频/音频
@@ -1416,11 +1421,11 @@
             [self.liveManager playVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamId renderMode:CloudHubVideoRenderModeFit mirrorMode:CHDefaultDisableVideoMirrorMode inView:self.mp4View isMediaStream:YES];
             if (mediaModel.state == CHWhiteBoardShareMediaState_Pause)
             {
-                [self.mp4BgView showMp4PauseView];
+                [self.whiteBoardBackgroundView showMp4PauseView];
             }
             else
             {
-                [self.mp4BgView showMp4WaitingView];
+                [self.whiteBoardBackgroundView showMp4WaitingView];
             }
             
             if (self.isFullScreen)
@@ -1429,9 +1434,9 @@
                 [self changeTopVideoToOriginalFrame];
             }
             self.fullScreenBtn.enabled = NO;
-            self.mp4BgView.hidden = NO;
-            [self.mp4BgView bm_bringToFront];
-            [self.mp4FullScreenBtn bm_bringToFront];
+//            self.mp4BgView.hidden = NO;
+            [self.whiteBoardBackgroundView bm_bringToFront];
+            [self.whiteBoardFullScreenBtn bm_bringToFront];
             
             if (self.mediaMarkView)
             {
@@ -1458,10 +1463,10 @@
         if (mediaModel.isVideo)
         {
             [self.liveManager stopVideoWithUserId:mediaModel.senderId streamID:mediaModel.streamId isMediaStream:YES];
-            [self.mp4BgView showMp4WaitingView];
+            [self.whiteBoardBackgroundView showMp4WaitingView];
             
             self.fullScreenBtn.enabled = YES;
-            self.mp4BgView.hidden = YES;
+//            self.mp4BgView.hidden = YES;
             [self handleSignalingHideVideoWhiteboard];
         }
     }
@@ -1480,7 +1485,7 @@
     }
     else
     {
-        [self.mp4BgView showMp4WaitingView];
+        [self.whiteBoardBackgroundView showMp4WaitingView];
     }
 }
 
@@ -1493,7 +1498,7 @@
     }
     else
     {
-        [self.mp4BgView showMp4PauseView];
+        [self.whiteBoardBackgroundView showMp4PauseView];
     }
 }
 
@@ -1513,9 +1518,9 @@
     NSString *fileId = [data bm_stringForKey:@"fileId"];
     CGFloat videoRatio = [data bm_doubleForKey:@"videoRatio"];
     
-    self.mediaMarkView = [[CHWBMediaMarkView alloc] initWithFrame:self.mp4BgView.bounds fileId:fileId];
-    [self.mp4BgView addSubview:self.mediaMarkView];
-    [self.mp4FullScreenBtn bm_bringToFront];
+    self.mediaMarkView = [[CHWBMediaMarkView alloc] initWithFrame:self.whiteBoardBackgroundView.bounds fileId:fileId];
+    [self.whiteBoardBackgroundView addSubview:self.mediaMarkView];
+    [self.whiteBoardFullScreenBtn bm_bringToFront];
     
     [self.mediaMarkView freshViewWithSavedSharpsData:self.mediaMarkSharpsDatas videoRatio:videoRatio];
 }
@@ -2033,10 +2038,15 @@
     {
         case 0:
         {
-            self.whiteBordView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, self.m_ScrollPageView.bm_height);
-            [self.liveManager.whiteBoardManager refreshMainWhiteBoard];
+            
+            self.whiteBoardBackgroundView = [[YSFloatView alloc] initWithFrame:CGRectMake(0, 0, BMUI_SCREEN_WIDTH, self.m_ScrollPageView.bm_height)];
+            self.whiteBoardBackgroundView.backgroundColor = [UIColor blackColor];
+            self.whiteBoardBackgroundView.showWaiting = YES;
+            self.whiteBoardBackgroundView.frame = self.m_ScrollPageView.bounds;
+
+            
                         
-            return self.whiteBordView;
+            return self.whiteBoardBackgroundView;
         }
         case 1:
         {
@@ -2322,7 +2332,7 @@
     }
     
     // 播放Mp4时
-    if (self.mp4BgView.hidden == NO)
+    if (self.isMp4FullScreen)
     {
         return;
     }
@@ -2354,9 +2364,10 @@
 {
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideMp4FullScreenBtn) object:nil];
     
-    if (self.mp4FullScreenBtn.hidden)
+//    if (self.mp4FullScreenBtn.hidden)
+        if (self.whiteBoardFullScreenBtn.hidden)
     {
-        self.mp4FullScreenBtn.hidden = NO;
+//        self.mp4FullScreenBtn.hidden = NO;
         [self performSelector:@selector(hideMp4FullScreenBtn) withObject:nil afterDelay:5.0f];
     }
     else
@@ -2367,16 +2378,16 @@
 
 - (void)hideMp4FullScreenBtn
 {
-    self.mp4FullScreenBtn.hidden = YES;
+//    self.mp4FullScreenBtn.hidden = YES;
 }
 
-- (void)mp4FullScreenBtnClicked:(UIButton *)btn
+- (void)whiteBoardFullScreenBtnClicked:(UIButton *)btn
 {
     if ([[BMNoticeViewStack sharedInstance] getNoticeViewCount])
     {
         return;
     }
-    
+    [self.liveManager.whiteBoardManager resetFullScreen];
     if (self.isMp4FullScreen)
     {
         // 如果是全屏，点击按钮进入小屏状态
@@ -2504,15 +2515,15 @@
             [UIView animateWithDuration:0.25 animations:^{
                 
                 self.isMp4FullScreen = NO;
-                self.mp4BgView.transform = CGAffineTransformMakeRotation(0);
+                self.whiteBoardBackgroundView.transform = CGAffineTransformMakeRotation(0);
                 
-                [self.mp4BgView removeFromSuperview];
-                [self.m_ScrollPageView.scrollView addSubview:self.mp4BgView];
-                self.mp4BgView.frame = self.m_ScrollPageView.bounds;
+                [self.whiteBoardBackgroundView removeFromSuperview];
+                [self.m_ScrollPageView.scrollView addSubview:self.whiteBoardBackgroundView];
+                self.whiteBoardBackgroundView.frame = self.m_ScrollPageView.bounds;
                 
-                self.mediaMarkView.frame = self.mp4BgView.bounds;
-                self.mp4FullScreenBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH - 15 - 40, self.mp4BgView.bm_height - 15 - 40, 40, 40);
-                self.mp4FullScreenBtn.selected = NO;
+                self.mediaMarkView.frame = self.whiteBoardBackgroundView.bounds;
+                self.whiteBoardFullScreenBtn.frame = CGRectMake(BMUI_SCREEN_WIDTH - 15 - 40, self.whiteBoardBackgroundView.bm_height - 15 - 40, 40, 40);
+                self.whiteBoardFullScreenBtn.selected = NO;
                 
                 
                 [self setNeedsStatusBarAppearanceUpdate];
@@ -2524,15 +2535,15 @@
             [UIView animateWithDuration:0.25 animations:^{
                 
                 self.isMp4FullScreen = YES;
-                self.mp4BgView.transform = CGAffineTransformMakeRotation(M_PI*0.5);
+                self.whiteBoardBackgroundView.transform = CGAffineTransformMakeRotation(M_PI*0.5);
                 
-                [self.mp4BgView removeFromSuperview];
-                [self.view addSubview:self.mp4BgView];
-                self.mp4BgView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, BMUI_SCREEN_HEIGHT);
+                [self.whiteBoardBackgroundView removeFromSuperview];
+                [self.view addSubview:self.whiteBoardBackgroundView];
+                self.whiteBoardBackgroundView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, BMUI_SCREEN_HEIGHT);
                 
-                self.mediaMarkView.frame = self.mp4BgView.bounds;
-                self.mp4FullScreenBtn.frame = CGRectMake(BMUI_SCREEN_HEIGHT - 15 - 40, 15, 40, 40);
-                self.mp4FullScreenBtn.selected = YES;
+                self.mediaMarkView.frame = self.whiteBoardBackgroundView.bounds;
+                self.whiteBoardFullScreenBtn.frame = CGRectMake(BMUI_SCREEN_HEIGHT - 15 - 40, 15, 40, 40);
+                self.whiteBoardFullScreenBtn.selected = YES;
                 
                 [self setNeedsStatusBarAppearanceUpdate];
             }];
@@ -2543,15 +2554,15 @@
             [UIView animateWithDuration:0.25 animations:^{
                 
                 self.isMp4FullScreen = YES;
-                self.mp4BgView.transform = CGAffineTransformMakeRotation(-M_PI*0.5);
+                self.whiteBoardBackgroundView.transform = CGAffineTransformMakeRotation(-M_PI*0.5);
                 
-                [self.mp4BgView removeFromSuperview];
-                [self.view addSubview:self.mp4BgView];
-                self.mp4BgView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, BMUI_SCREEN_HEIGHT);
+                [self.whiteBoardBackgroundView removeFromSuperview];
+                [self.view addSubview:self.whiteBoardBackgroundView];
+                self.whiteBoardBackgroundView.frame = CGRectMake(0, 0, BMUI_SCREEN_WIDTH, BMUI_SCREEN_HEIGHT);
                 
-                self.mediaMarkView.frame = self.mp4BgView.bounds;
-                self.mp4FullScreenBtn.frame = CGRectMake(BMUI_SCREEN_HEIGHT - 15 - 40, 15, 40, 40);
-                self.mp4FullScreenBtn.selected = YES;
+                self.mediaMarkView.frame = self.whiteBoardBackgroundView.bounds;
+                self.whiteBoardFullScreenBtn.frame = CGRectMake(BMUI_SCREEN_HEIGHT - 15 - 40, 15, 40, 40);
+                self.whiteBoardFullScreenBtn.selected = YES;
                 
                 [self setNeedsStatusBarAppearanceUpdate];
             }];
