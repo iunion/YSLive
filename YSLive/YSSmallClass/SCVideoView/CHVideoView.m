@@ -51,11 +51,11 @@
 
 /// 上层数据View
 @property (nonatomic, strong) UIView *coverView;
-
+#if CH_OldGroup
 /// 分组蒙版
 @property (nonatomic, strong) UIView *maskGroupRoomBgView;
 @property (nonatomic, strong) UIImageView *maskGroupRoomImageView;
-
+#endif
 /// 奖杯
 @property (nonatomic, strong) UIImageView *cupImageView;
 /// 奖杯个数
@@ -349,6 +349,7 @@
     [self addSubview:coverView];
     self.coverView = coverView;
     
+#if CH_OldGroup
     // 分组
     UIView *maskGroupRoomBgView = [[UIView alloc] init];
     maskGroupRoomBgView.backgroundColor = YSSkinDefineColor(@"Color9");
@@ -360,7 +361,7 @@
     maskGroupRoomImageView.contentMode = UIViewContentModeScaleAspectFit;
     [self.maskGroupRoomBgView addSubview:maskGroupRoomImageView];
     self.maskGroupRoomImageView = maskGroupRoomImageView;
-
+#endif
     // 奖杯
     UIImageView *cupImageView = [[UIImageView alloc] initWithFrame:CGRectMake(5, 5, 20, 20)];
     cupImageView.image = YSSkinElementImage(@"videoView_trophyImage", @"iconNor");
@@ -532,11 +533,11 @@
     self.maskNoVideoLabel.frame = CGRectMake(2.0f, 10.0f, self.bm_width-4.0f, self.bm_height-25.0f);
 
     self.homeMaskLabel.frame = CGRectMake(0, 10.0f, self.bounds.size.width, self.bounds.size.height-20.0f);
-
+#if CH_OldGroup
     self.maskGroupRoomBgView.frame = self.coverView.bounds;
     self.maskGroupRoomImageView.bm_size = CGSizeMake(width, width);
     [self.maskGroupRoomImageView bm_centerInSuperView];
-    
+#endif
     if (self.appUseTheType == CHRoomUseTypeLiveRoom || self.roomUser.role == CHUserType_Teacher || self.roomUser.role == CHUserType_Assistant)
     {
         self.cupImageView.hidden = YES;
@@ -705,14 +706,14 @@
         }
     }
 }
-
+#if CH_OldGroup
 - (void)setGroupRoomState:(CHGroupRoomState)groupRoomState
 {
     _groupRoomState = groupRoomState;
     
     [self freshWithRoomUser];
- }
-
+}
+#endif
 /// 当前设备音量  音量大小 0 ～ 255
 - (void)setIVolume:(NSUInteger)iVolume
 {
@@ -1109,7 +1110,7 @@
     {
         self.maskCloseVideoBgView.hidden = YES;
     }
-    
+#if CH_OldGroup
     if (self.groupRoomState == CHGroupRoomState_Normal)
     {
         self.maskGroupRoomBgView.hidden = YES;
@@ -1130,7 +1131,7 @@
         
         return;
     }
-    
+#endif
     // 刷新当前用户前后台状态
     if ([self.roomUser.peerID isEqualToString:YSCurrentUser.peerID])
     {

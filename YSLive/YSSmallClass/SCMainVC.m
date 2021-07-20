@@ -3075,14 +3075,14 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
             self.controlPopoverView.foucePeerId = nil;
         }
     }
-    
+#if CH_OldGroup
     if (self.liveManager.isGroupRoom && self.liveManager.isGroupBegin && self.liveManager.isParentRoomChating && user.role == CHUserType_Teacher)
     {
         ///分组房间 当名师离开房间时  班主任如果在私聊中  将状态重置到正常情况
         CHVideoView * classMasterVideo = self.classMasterVideoViewArray.firstObject;
         classMasterVideo.groupRoomState = CHGroupRoomState_Normal;
     }
-    
+#endif
     ///老师退出时，结束小黑板私聊
     if (user.role == CHUserType_Teacher && [self.privateIdArray bm_isNotEmpty])
     {
@@ -3405,7 +3405,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     [super onRoomJoined];
 }
 
-
+#if CH_OldGroup
 #pragma mark 主房间上下课
 - (void)handleSignalingGroupRoomBegin:(BOOL)isGroupBegin
 {
@@ -3432,7 +3432,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         self.spreadBottomToolBar.isToolBoxEnable = YSCurrentUser.canDraw;
     }
 }
-
+#endif
 #pragma mark 上课
 - (void)handleSignalingClassBeginWihIsHistory:(BOOL)isHistory
 {
@@ -3442,12 +3442,12 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     self.rightChatView.allDisabled = NO;
 
     self.teacherPlaceLab.hidden = YES;
-    
+#if CH_OldGroup
     if (!self.liveManager.isGroupRoom)
     {
         [self addVideoViewWithPeerId:self.liveManager.teacher.peerID];
     }
-
+#endif
     [self freshTeacherPersonListData];
        
     self.spreadBottomToolBar.isBeginClass = YES;
@@ -3514,7 +3514,9 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
         {
             if (self.videoSequenceArr.count < maxVideoCount || [self.videoViewArrayDic.allKeys containsObject:YSCurrentUser.peerID])
             {
+#if CH_OldGroup
                 if (!self.liveManager.isGroupRoom)
+#endif
                 {
                     NSString *whom = CHRoomPubMsgTellAll;
                     if (self.liveManager.isBigRoom)
@@ -3670,6 +3672,7 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
     }
 }
 
+#if CH_OldGroup
 #pragma mark - 分组房间授课
 /// 启用授课（关闭讨论）
 - (void)handleSignalingParentRoomLectureBegin
@@ -3729,6 +3732,8 @@ static NSInteger studentPlayerFirst = 0; /// 播放器播放次数限制
 //        }
     }
 }
+
+#endif
 
 #pragma mark - 窗口布局变化
 - (void)handleSignalingSetRoomLayout:(CHRoomLayoutType)roomLayout withPeerId:(NSString *)peerId withSourceId:(NSString *)sourceId

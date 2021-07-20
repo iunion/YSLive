@@ -98,8 +98,10 @@ typedef void (^YSRoomLeftDoBlock)(void);
 @property (nonatomic, strong) YSInputView *admin_accountTextField;
 /// 网校密码输入框
 @property (nonatomic, strong) YSInputView *passOnlineTextField;
+#if CH_OldGroup
 /// grouproom 房间分组类型 0 普通房间，1 分组主（父）房间，2 分组子房间
 @property (nonatomic, assign) CHRoomGroupType grouproom;
+#endif
 ///获取房间类型时，探测接口的调用次数
 @property (nonatomic, assign) NSInteger  callNum;
 
@@ -1359,10 +1361,10 @@ typedef void (^YSRoomLeftDoBlock)(void);
                 weakSelf.room_UseTheType = [dataDict bm_intForKey:@"roomtype"];
                 
                 weakSelf.needpwd = [dataDict bm_boolForKey:@"needpwd"];
-                
+#if CH_OldGroup
                 // grouproom 房间分组类型 0 普通房间，1 分组主（父）房间，2 分组子房间
                 weakSelf.grouproom = [dataDict bm_intForKey:@"grouproom"];
-                
+#endif
                 if (weakSelf.needpwd)
                 {
                     self.passwordTextField.placeholder = YSLoginLocalized(@"Prompt.inputPwd");
@@ -1417,13 +1419,13 @@ typedef void (^YSRoomLeftDoBlock)(void);
     {
         return;
     }
-
+#if CH_OldGroup
     if (self.grouproom > CHRoomGroupType_Normal && (self.grouproom == CHRoomGroupType_GroupSub && self.selectRoleType == CHUserType_Teacher))
     {
         [self.progressHUD bm_showAnimated:NO withDetailText:YSLocalized(@"Error.JoinGroupRoom") delay:BMPROGRESSBOX_DEFAULT_HIDE_DELAY];
         return;
     }
-    
+#endif
     YSLiveManager *liveManager = [YSLiveManager sharedInstance];
     [liveManager registerRoomDelegate:self];
     liveManager.apiHost = YSLIVE_HOST;

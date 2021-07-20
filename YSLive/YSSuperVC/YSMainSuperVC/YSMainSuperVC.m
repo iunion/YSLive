@@ -516,7 +516,7 @@
                 }
             }
         }
-        
+#if CH_OldGroup
         // 分组教室
         if (self.liveManager.isGroupRoom)
         {
@@ -530,6 +530,7 @@
 //            }
         }
         else
+#endif
         {
             ///把老师插入最前面
             [self insertVideoViewWithArray:self.teacherVideoViewArray];
@@ -825,10 +826,12 @@
                 if (roomUser.role == CHUserType_Teacher)
                 {
                     self.teacherVideoViewArray = theVideoArray;
+#if CH_OldGroup
                     if (self.liveManager.isGroupRoom)
                     {
                         newVideoView.groupRoomState = CHGroupRoomState_Discussing;
                     }
+#endif
                 }
                 else if (roomUser.role == CHUserType_ClassMaster)
                 {
@@ -855,10 +858,12 @@
                 if (roomUser.role == CHUserType_Teacher)
                 {
                     self.teacherVideoViewArrayFull = theVideoArrayFull;
+#if CH_OldGroup
                     if (self.liveManager.isGroupRoom)
                     {
                         newVideoViewFull.groupRoomState = CHGroupRoomState_Discussing;
                     }
+#endif
                 }
                 else if (roomUser.role == CHUserType_ClassMaster)
                 {
@@ -1054,10 +1059,12 @@
                 if (roomUser.role == CHUserType_Teacher)
                 {
                     self.teacherVideoViewArray = theAddVideoArray;
+#if CH_OldGroup
                     if (self.liveManager.isGroupRoom)
                     {
                         newVideoView.groupRoomState = CHGroupRoomState_Discussing;
                     }
+#endif
                 }
                 else if (roomUser.role == CHUserType_ClassMaster)
                 {
@@ -1108,10 +1115,12 @@
                 if (roomUser.role == CHUserType_Teacher)
                 {
                     self.teacherVideoViewArrayFull = theAddVideoArrayFull;
+#if CH_OldGroup
                     if (self.liveManager.isGroupRoom)
                     {
                         newVideoViewFull.groupRoomState = CHGroupRoomState_Discussing;
                     }
+#endif
                 }
                 else if (roomUser.role == CHUserType_ClassMaster)
                 {
@@ -1489,11 +1498,12 @@
         {
             videoMirrorMode = CloudHubVideoMirrorModeEnabled;
         }
+#if CH_OldGroup
         if (self.liveManager.isGroupRoom && videoView.roomUser.role == CHUserType_Teacher)
         {
             videoView.groupRoomState = CHGroupRoomState_Normal;
         }
-        
+#endif
         if (![self.fullFloatVideoView bm_isNotEmpty] || self.fullFloatVideoView.hidden)
         {
             [self.liveManager playVideoWithUserId:uid streamID:streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:videoMirrorMode inView:videoView.contentView];
@@ -1512,11 +1522,12 @@
         {
             videoMirrorMode = CloudHubVideoMirrorModeEnabled;
         }
+#if CH_OldGroup
         if (self.liveManager.isGroupRoom && videoViewFull.roomUser.role == CHUserType_Teacher)
         {
             videoViewFull.groupRoomState = CHGroupRoomState_Normal;
         }
-        
+#endif
         if ([self.fullFloatVideoView bm_isNotEmpty] && !self.fullFloatVideoView.hidden)
         {
             [self.liveManager playVideoWithUserId:uid streamID:streamId renderMode:CloudHubVideoRenderModeHidden mirrorMode:videoMirrorMode inView:videoViewFull.contentView];

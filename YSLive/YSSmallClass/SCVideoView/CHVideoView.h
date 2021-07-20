@@ -106,10 +106,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL isFullScreen;
 /// 是否被拖出
 @property (nonatomic, assign) BOOL isDragOut;
-
+#if CH_OldGroup
 /// 分组房间视频状态
 @property (nonatomic, assign) CHGroupRoomState groupRoomState;
-
+#endif
 /// 是否举手
 @property (nonatomic, assign) BOOL isRaiseHand;
 
