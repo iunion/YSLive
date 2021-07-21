@@ -282,7 +282,13 @@
     
     UIImage *image = _imageView.image;
     if (image.size.height / image.size.width > self.bmtz_height / self.scrollView.bmtz_width) {
-        _imageContainerView.bmtz_height = floor(image.size.height / (image.size.width / self.scrollView.bmtz_width));
+        CGFloat width = image.size.width / image.size.height * self.scrollView.bmtz_height;
+        if (width < 1 || isnan(width)) width = self.bmtz_width;
+        width = floor(width);
+        
+        _imageContainerView.bmtz_width = width;
+        _imageContainerView.bmtz_height = self.bmtz_height;
+        _imageContainerView.bmtz_centerX = self.bmtz_width  / 2;
     } else {
         CGFloat height = image.size.height / image.size.width * self.scrollView.bmtz_width;
         if (height < 1 || isnan(height)) height = self.bmtz_height;
